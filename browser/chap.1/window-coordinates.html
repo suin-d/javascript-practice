@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Window Coordinates</title>
+    <style>
+      body {
+        background-color: #fff;
+      }
+      div {
+        background-color: #dfdfdf;
+        width: 150px;
+        height: 150px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+      }
+      .special {
+        background-color: rgb(255, 223, 80);
+      }
+
+      aside {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--  클릭된 지점의 client x,y & page x,y -->
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div class="special"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <aside>
+      <button class="scroll-by">scroll by 100px(y)</button>
+      <button class="scroll-to">scroll to 100px(y)</button>
+      <button class="scroll-into">scroll into special</button>
+    </aside>
+
+    <script>
+      const special = document.querySelector(".special");
+
+      // special 변수에 이벤트리스너 추가, 클릭 시 함수 실행
+      special.addEventListener("click", (e) => {
+        const rect = special.getBoundingClientRect();
+        console.log(rect);
+        console.log(`client: ${e.clientX}, ${e.clientY}`);
+        console.log(`page: ${e.pageX}, ${e.pageY}`);
+      });
+
+      const scrollBy = document.querySelector(".scroll-by");
+      const scrollTo = document.querySelector(".scroll-to");
+      const scrollInto = document.querySelector(".scroll-into");
+
+      scrollBy.addEventListener("click", (e) => {
+        // window.scrollBy(0, 100);
+        window.scrollBy({ top: 100, left: 0, behavior: "smooth" });
+        // top은 세로 위치, left는 가로 위치
+        // scrollBy: 상대적 위치, 현재 위치를 기준으로 파라미터 값으로 넘겨준 만큼 이동
+      });
+      scrollTo.addEventListener("click", (e) => {
+        window.scrollTo({ top: 100, left: 0, behavior: "smooth" });
+        // scrollTo: 절대적 위치, 왼쪽 상단 모서리를 기준으로 이동
+      });
+      scrollInto.addEventListener("click", (e) => {
+        special.scrollIntoView({ behavior: "smooth" });
+        // scrollIntoView: 해당 엘리먼트 위치로 이동
+      });
+    </script>
+  </body>
+</html>
