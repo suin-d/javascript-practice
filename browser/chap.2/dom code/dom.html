@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html {
+        padding: 0px;
+        margin: 0px;
+      }
+
+      body {
+        background-color: black;
+        text-align: center;
+      }
+      section {
+        width: 50%;
+        margin: 50px auto;
+        background-color: brown;
+        border-radius: 20px;
+        padding: 20px;
+      }
+      img {
+        z-index: 100;
+        will-change: opacity;
+      }
+      h1,
+      h3,
+      span {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <img src="img/avatar.png" alt="avatar" />
+      <h1 id="brand">Dream Coding</h1>
+      <h3>Don't forget to code your dream</h3>
+    </section>
+    <span>Hello World!</span>
+  </body>
+  <script>
+    const section = document.querySelector("section");
+    const h2 = document.createElement("h2");
+    h2.setAttribute("class", "title"); // key&value // <h2 class="title"></h2>
+    h2.textContent = "This is a title"; // <h2 class="title">This is a title</h2>
+    const h3 = document.querySelector("h3");
+
+    // section.appendChild(h2);
+    // append: 새로운 자식 노드를 추가할 때 사용, append는 string 같은 것을 추가할 수 있게 해주고, return되는 value가 없다.
+    // appendChild는 새로 추가되는 자식 노드 자체 리턴, 익스플로러 호환, 부모 안에서 제일 끝부분에 추가
+
+    section.insertBefore(h2, h3);
+    // insertBefore : 노드를 어떤 reference 노드 전에 추가해준다.
+
+    section.innerHTML = `
+    <img src="img/avatar.png" alt="avatar"/>
+    <h1 id="brand">Dream Coding</h1>
+    `;
+
+    // 부분적으로 변경이 일어나야하는 경우라면, 해당하는 요소만 업데이트 하는 것이 효율적
+    // element를 만들게 되면 만든 요소를 이용해서 여러 동작 가능
+    // 한번 업데이트 후 변경할 일이 없다면 innerHTML 사용 가능
+  </script>
+</html>
