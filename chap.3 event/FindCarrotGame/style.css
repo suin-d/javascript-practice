@@ -53,6 +53,7 @@ i {
   border-radius: 5px;
   font-size: 30px;
   margin-top: 8px;
+  /* display:none은 렌더트리에 포함되지 않기 때문에 필드 사이즈에 영향, 이 자리에 있으면서 보이지 않아야 할 때는 visibility:hidden */
   visibility: hidden;
   /* 마우스 선택되지 않게 */
   user-select: none;

@@ -1,4 +1,5 @@
 'use strict';
+import PopUp from './popup.js';
 
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
@@ -29,7 +30,15 @@ let score = 0;
 // 타이머
 let timer = undefined;
 
+const gameFinishBanner = new PopUp();
+
+gameFinishBanner.setClickListener(() => {
+  startGame();
+});
+// PopUp한테 클릭이 되면 startGame 호출하라는 콜백 등록, 클래스 멤버변수 onClick에 이 클릭이 할당되고, popUp 내부에서 refresh버튼 클릭이 발생하면 등록된 콜백이 있다면 onClick 호출 후 popUp자체를 hide
+
 field.addEventListener('click', onFieldClick);
+// = field.addEventListner('click', (event) => onFieldClick(event));
 
 playBtn.addEventListener('click', () => {
   if (started) {
@@ -52,7 +61,8 @@ function stopGame() {
   started = false;
   stopGameTimer();
   hideGameBtn();
-  showPopUpWithText('Replay❓');
+  // showPopUpWithText('Replay❓');
+  gameFinishBanner.showWithText('Replay❓');
   playSound(alertSound);
   stopSound(bgSound);
 }
@@ -67,16 +77,7 @@ function finishGame(win) {
   }
   stopGameTimer();
   stopSound(bgSound);
-  showPopUpWithText(win ? 'YOU WON🎉' : 'YOU LOST😛');
-}
-
-popUpRefresh.addEventListener('click', () => {
-  startGame();
-  hidePopUp();
-});
-
-function hidePopUp() {
-  popUp.classList.add('pop--up--hide');
+  gameFinishBanner.showWithText(win ? 'YOU WON🎉' : 'YOU LOST😛');
 }
 
 function showStopButton() {
@@ -115,11 +116,6 @@ function updateTimerText(time) {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   gameTimer.innerText = `${minutes}:${seconds}`;
-}
-
-function showPopUpWithText(text) {
-  popUpText.innerText = text;
-  popUp.classList.remove('pop--up--hide');
 }
 
 function initGame() {
@@ -178,6 +174,8 @@ function addItem(className, count, imgPath) {
     item.style.position = 'absolute';
     const x = randomNumber(x1, x2);
     const y = randomNumber(y1, y2);
+    console.log(`x: ${x}`);
+    console.log(`y: ${y}`);
     item.style.left = `${x}px`;
     item.style.top = `${y}px`;
     field.appendChild(item);
