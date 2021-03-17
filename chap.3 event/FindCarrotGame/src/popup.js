@@ -19,7 +19,7 @@ export default class PopUp {
     // 클래스 PopUp 안에 있는 멤버변수 onClick에 지금 함수에서 전달받은 onClick이라는 인자를 할당해준 것
   }
   // PopUp, 내가 여기 onClick 콜백을 등록해 놓을 테니까, 팝업에서 버튼이 클릭되면 내가 전달해준 onClick을 호출해
-
+  // PopUp한테 클릭이 되면 startGame 호출하라는 콜백 등록, 클래스 멤버변수 onClick에 이 클릭이 할당되고, popUp 내부에서 refresh버튼 클릭이 발생하면 등록된 콜백이 있다면 onClick 호출 후 popUp자체를 hide
   showWithText(text) {
     this.popUpText.innerText = text;
     this.popUp.classList.remove('pop--up--hide');

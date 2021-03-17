@@ -1,9 +1,13 @@
 'use strict';
 import * as sound from './sound.js';
-const carrotSound = new Audio('./sound/carrot_pull.mp3');
+
 const CARROT_SIZE = 80;
 
-export default class Field {
+export const ItemType = Object.freeze({
+  carrot: 'carrot',
+  bug: 'bug',
+});
+export class Field {
   constructor(carrotCount, bugCount) {
     this.carrotCount = carrotCount;
     this.bugCount = bugCount;
@@ -28,8 +32,8 @@ export default class Field {
 
   init() {
     this.field.innerHTML = '';
-    this._addItem('carrot', this.carrotCount, 'img/carrot.png');
-    this._addItem('bug', this.bugCount, 'img/bug.png');
+    this._addItem(ItemType.carrot, this.carrotCount, 'img/carrot.png');
+    this._addItem(ItemType.bug, this.bugCount, 'img/bug.png');
   }
 
   //onItemClick이 클릭되면 호출
@@ -63,10 +67,10 @@ export default class Field {
       // matches(): css셀렉터가 해당하는지 확인하는 함수
       target.remove();
       sound.playCarrot();
-      this.onItemClick && this.onItemClick('carrot');
+      this.onItemClick && this.onItemClick(ItemType.carrot);
       // this.onItemClick에 콜백이 등록되어 있으면 onItemClick의 함수를 호출
     } else if (target.matches('.bug')) {
-      this.onItemClick && this.onItemClick('bug');
+      this.onItemClick && this.onItemClick(ItemType.bug);
     }
   };
 }
